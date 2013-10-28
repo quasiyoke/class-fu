@@ -27,6 +27,16 @@ ClassFu(function(){
 		equal($els.length, 4, 'instance.length === 4');
 	});
 
+	test('takes CSS class selector', function(){
+		var $els = $('.a');
+		var els = document.getElementsByClassName('a');
+		equal($els[0], els[0], 'Element 0 can be accessed through subscript');
+		equal($els[1], els[1], 'Element 1 can be accessed through subscript');
+		equal($els[2], els[2], 'Element 2 can be accessed through subscript');
+		equal($els[3], els[3], 'Element 3 can be accessed through subscript');
+		equal($els.length, 4, 'instance.length === 4');
+	});
+
 	test('takes CSS id selector', function(){
 		var el = document.createElement('b');
 		el.setAttribute('id', 'a');

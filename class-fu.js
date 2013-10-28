@@ -4,7 +4,9 @@
 	var Constructor = function(obj, action){
 		if(isString(obj)){
 			if(obj.startsWith('#')){
-				obj = document.getElementById(obj.slice(1))
+				obj = document.getElementById(obj.slice(1));
+			}else if(obj.startsWith('.')){
+				obj = document.getElementsByClassName(obj.slice(1));
 			}else{
 				return;
 			}
@@ -21,10 +23,10 @@
 		}
 
 		if(isFunction(obj)){
-			if(document.addEventListener){
-				document.addEventListener('DOMContentLoaded', obj, false);
+			if(ClassFu.ready){
+				obj(ClassFu);
 			}else{
-				window.onload = obj;
+				readyCallbacks.push(obj);
 			}
 			return;
 		}
@@ -48,12 +50,26 @@
 		return typeof obj === 'string';
 	};
 
+	var readyCallbacks = [];
+	var onready = function(){
+		ClassFu.ready = true;
+		for(var i=0; i<readyCallbacks.length; i++){
+			readyCallbacks[i](ClassFu);
+		}
+	}
+	if(document.addEventListener){
+		document.addEventListener('DOMContentLoaded', onready, false);
+	}else{
+		window.onload = onready;
+	}
+
 	var ClassFu = function(obj, action){
 		return new Constructor(obj, action);
 	};
 	ClassFu.isElement = isElement;
 	ClassFu.isFunction = isFunction;
 	ClassFu.isString = isString;
+	ClassFu.ready = false;
 	
 	window.ClassFu = ClassFu;
 	ClassFu.previousDollarSign = window.$;
