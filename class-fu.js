@@ -2,6 +2,14 @@
 
 (function(){
 	var Constructor = function(obj, action){
+		if(isString(obj)){
+			if(obj.startsWith('#')){
+				obj = document.getElementById(obj.slice(1))
+			}else{
+				return;
+			}
+		}
+		
 		if(!obj){
 			return;
 		}
@@ -36,11 +44,16 @@
 		return typeof obj === 'function';
 	};
 
+	var isString = function(obj){
+		return typeof obj === 'string';
+	};
+
 	var ClassFu = function(obj, action){
 		return new Constructor(obj, action);
 	};
 	ClassFu.isElement = isElement;
 	ClassFu.isFunction = isFunction;
+	ClassFu.isString = isString;
 	
 	window.ClassFu = ClassFu;
 	ClassFu.previousDollarSign = window.$;

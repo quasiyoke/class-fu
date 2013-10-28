@@ -26,4 +26,14 @@ ClassFu(function(){
 		equal($els[3], els[3], 'Element 3 can be accessed through subscript');
 		equal($els.length, 4, 'instance.length === 4');
 	});
+
+	test('takes CSS id selector', function(){
+		var el = document.createElement('b');
+		el.setAttribute('id', 'a');
+		var fixture = document.getElementById('qunit-fixture');
+		fixture.appendChild(el);
+		var $el = $('#a');
+		equal($el[0], el, 'Element can be accessed through subscript');
+		equal($el.length, 1, 'instance.length === 1');		
+	});
 });
