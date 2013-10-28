@@ -37,6 +37,22 @@
 		}
 	};
 	Constructor.prototype.classFu = true;
+
+	var getClasses = function(element){
+		var s = element.getAttribute('class');
+		var retval = {};
+		if(!s){
+			return retval;
+		}
+		s = s.split(' ');
+		for(var i=s.length; i--;){
+			if(!s[i]){
+				continue;
+			}
+			retval[s[i]] = null;
+		}
+		return retval;
+	}
 	
 	var isElement = function(obj){
 		return obj && 1 === obj.nodeType || false;
@@ -66,6 +82,7 @@
 	var ClassFu = function(obj, action){
 		return new Constructor(obj, action);
 	};
+	ClassFu.getClasses = getClasses;
 	ClassFu.isElement = isElement;
 	ClassFu.isFunction = isFunction;
 	ClassFu.isString = isString;
