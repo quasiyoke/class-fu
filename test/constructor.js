@@ -2,14 +2,6 @@
 module('Constructor');
 
 ClassFu(function(){
-	test('dollar sign', function(){
-		equal($, ClassFu, 'ClassFu could be accessed through $ shortcut');
-	});
-	
-	test('previous dollar sign', function(){
-		equal($.previousDollarSign, dollarSign, 'ClassFu.previousDollarSign value is ok');
-	});
-
 	test('takes element', function(){
 		var el = document.createElement('b');
 		var $el = $(el);

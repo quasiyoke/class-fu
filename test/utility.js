@@ -12,4 +12,12 @@ ClassFu(function(){
 		el.setAttribute('class', 'a b  class foo-bar ');
 		deepEqual($.getClasses(el), {a: null, b: null, class: null, 'foo-bar': null}, 'Gets CSS classes of element');
 	});
+	
+	test('dollar sign', function(){
+		equal($, ClassFu, 'ClassFu could be accessed through $ shortcut');
+	});
+	
+	test('previous dollar sign', function(){
+		equal($.previousDollarSign, dollarSign, 'ClassFu.previousDollarSign value is ok');
+	});
 });
