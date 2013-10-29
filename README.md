@@ -1,4 +1,4 @@
-# class-fu --- CSS classes kung fu :)
+# class-fu &mdash; CSS classes kung fu :)
 class-fu is a JavaScript library for manipulating CSS classes.
 
 class-fu is leightweight and doesn't use third-party libraries.
@@ -56,18 +56,18 @@ $cows.classes('- cow + well-done + delicious + steak');
 ```
 Where:
 
-- `-` (minus) means *remove*. E.g. `$cows.classes('- cow')` --- "remove `cow` class".
-- `+` (plus) means *add*. E.g. `$cows.classes('+ steak')` --- "add `steak` class".
-- ...and `!` (exclamation mark, not introduced in example) means *toggle*. E.g. `$cows.classes('!odd')` --- "toggle `odd` class".
+- `-` (minus) means *remove*. E.g. `$cows.classes('- cow')` &mdash; "remove `cow` class".
+- `+` (plus) means *add*. E.g. `$cows.classes('+ steak')` &mdash; "add `steak` class".
+- ...and `!` (exclamation mark, not introduced in example) means *toggle*. E.g. `$cows.classes('!odd')` &mdash; "toggle `odd` class".
 
 One must:
 
 - not use space in front of classes' command and between `!` (exclamation mark) and class name. 
- - `$cows.classes(' - cow')` --- throws an exception.
- - `$cows.classes('! odd')` --- throws an exception too.
+ - `$cows.classes(' - cow')` &mdash; throws an exception.
+ - `$cows.classes('! odd')` &mdash; throws an exception too.
 - use space between `-` (minus) or `+` (plus) and class name.
- - `$cows.classes('-cow')` --- **sets class attribute value to `-cow`**.
- - `$cows.classes('+cow')` --- throws an exception.
+ - `$cows.classes('-cow')` &mdash; **sets class attribute value to `-cow`**.
+ - `$cows.classes('+cow')` &mdash; throws an exception.
  
 This pretty hard rules were applied partially to enlarge your classes' commands readability, but at most because of necessity of working with minus-prefixed CSS classes like this: `-my-minus-prefixed-css-class`.
 
@@ -88,13 +88,13 @@ $('.cow').classes('- cow + well-done + delicious + steak');
 $('.cow', '- cow + well-done + delicious + steak');
 ```
 ### Waiting until content loaded
-If you just put your document's objects' manipulating code on the page, it won't work, because browser often runs scripts earlier than page is completely processed. To run your code right after all preparations, you must subscribe on `DOMContentLoaded` event. The simplest way to do it --- use class-fu:
+If you just put your document's objects' manipulating code on the page, it won't work, because browser often runs scripts earlier than page is completely processed. To run your code right after all preparations, you must subscribe on `DOMContentLoaded` event. The simplest way to do it &mdash; use class-fu:
 ```javascript
 ClassFu(function($){
   $('.cow', '- cow + well-done + delicious + steak');
 });
 ```
-Notice, we put cows' cooking into function which has `$` shortcut as argument --- class-fu will call this function back when content loaded and pass its factory as first argument. This allows to redefine and use `window.$` as you want.
+Notice, we put cows' cooking into function which has `$` shortcut as argument &mdash; class-fu will call this function back when content loaded and pass its factory as first argument. This allows to redefine and use `window.$` as you want.
 
 That's all! Cows will be ready right when you open the page.
 
@@ -107,7 +107,7 @@ ClassFu(function($){
   }, 500);
 });
 ```
-Every time inner function will be called, class-fu change `highlighted` class presence --- that means "toggle" highlight.
+Every time inner function will be called, class-fu change `highlighted` class presence &mdash; that means "toggle" highlight.
 
 If you cache your elements, this will work a bit faster:
 ```javascript
