@@ -21,6 +21,9 @@ ClassFu(function(){
 		els.push(document.createElement('b'));
 		els[2].setAttribute('class', 'beta gamma zeta');
 		var $els = $(els);
+		throws(function(){$els.classes(' - alpha')}, 'Throws an exception on space before commands');
+		throws(function(){$els.classes('- alpha +beta + gamma')}, 'Throws an exception on no space in add');
+		throws(function(){$els.classes('+ alpha ! beta !gamma')}, 'Throws an exception on space in toggle');
 		equal($els.classes('- alpha - beta + gamma + delta !epsilon !zeta'), $els, 'Returns self');
 		deepEqual($.getClasses(els[0]), {gamma: null, delta: null, epsilon: null, zeta: null}, 'Element 0 `class` attribute correct');
 		deepEqual($.getClasses(els[1]), {gamma: null, delta: null, zeta: null}, 'Element 1 `class` attribute correct');
@@ -30,8 +33,11 @@ ClassFu(function(){
 	test('set classes', function(){
 		var $els = $();
 		equal($els.classes('alpha beta'), $els, 'Returns self when empty');
+		var $els = $(document.createElement('b'));
+		equal($els.classes('-alpha - beta'), $els, 'Returns self');
+		equal($els[0].getAttribute('class'), '-alpha - beta', '`class` attribute took value with minus');
 		var $els = $('.a');
-		equal($els.classes('alpha beta'), $els, 'Returns self');
+		$els.classes('alpha beta');
 		equal($els[0].getAttribute('class'), 'alpha beta', 'Element 0 `class` attribute took given value');
 		equal($els[1].getAttribute('class'), 'alpha beta', 'Element 1 `class` attribute took given value');
 		equal($els[2].getAttribute('class'), 'alpha beta', 'Element 2 `class` attribute took given value');

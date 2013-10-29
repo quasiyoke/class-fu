@@ -48,8 +48,39 @@
 			return this;
 		}
 		if(isString(options)){
-			for(var i=this.length; i--;){
-				this[i].setAttribute('class', options);
+			if(/^((^| )(\- |[+!] ?)[\w\d\-]+)+$/.test(options)){
+				if(options.startsWith(' ')){
+					throw 'Commands shouldn\'t start with space';
+				}
+				var s = options;
+				options = {
+					remove: [],
+					add: [],
+					toggle: []
+				};
+				var re = /([\-+!])( ?)([\w\d\-]+)/g;
+				var match = re.exec(s);
+				do{
+					if('-' === match[1]){
+						options.remove.push(match[3]);
+					}else if('+' === match[1]){
+						if(!match[2]){
+							throw 'Command `add` must contain space after plus: "' + match[0] + '"';
+						}
+						options.add.push(match[3]);
+					}else{
+						if(match[2]){
+							throw 'Command `toggle` must contain no space after exclamation: "' + match[0] + '"';
+						}
+						options.toggle.push(match[3]);
+					}
+					match = re.exec(s);
+				}while(match);
+			}else{
+				for(var i=this.length; i--;){
+					this[i].setAttribute('class', options);
+				}
+				return this;
 			}
 		}
 		return this;
@@ -70,6 +101,16 @@
 		}
 		return retval;
 	}
+
+	var isCommand = function(s){
+		var i = 0;
+		var any = false;
+		var command = function(){
+			return (c('-') && c(' '))
+		};
+
+		return command();
+	};
 	
 	var isElement = function(obj){
 		return obj && 1 === obj.nodeType || false;
