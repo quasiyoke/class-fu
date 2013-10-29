@@ -19,6 +19,16 @@ ClassFu(function(){
 		equal($els.length, 4, 'instance.length === 4');
 	});
 
+	test('takes classes commands', function(){
+		ok($([], 'b').classFu, 'On empty array returns instance');
+		var $els = $('.a', 'b');
+		ok($els.classFu, 'Returns instance');
+		equal($els[0].getAttribute('class'), 'b', 'Element 0 `class` attribute took given value');
+		equal($els[1].getAttribute('class'), 'b', 'Element 1 `class` attribute took given value');
+		equal($els[2].getAttribute('class'), 'b', 'Element 2 `class` attribute took given value');
+		equal($els[3].getAttribute('class'), 'b', 'Element 3 `class` attribute took given value');
+	});
+
 	test('takes CSS class selector', function(){
 		var $els = $('.a');
 		var els = document.getElementsByClassName('a');

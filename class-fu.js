@@ -172,8 +172,12 @@
 		window.onload = onready;
 	}
 
-	var ClassFu = function(obj, action){
-		return new Constructor(obj, action);
+	var ClassFu = function(obj, commands){
+		var retval = new Constructor(obj);
+		if(commands){
+			retval = retval.classes(commands);
+		}
+		return retval;
 	};
 	ClassFu.getClasses = getClasses;
 	ClassFu.isElement = isElement;
