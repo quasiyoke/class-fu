@@ -83,6 +83,27 @@
 				return this;
 			}
 		}
+		options.remove = options.remove || [];
+		options.add = options.add || [];
+		options.toggle = options.toggle || [];
+		for(var i=this.length; i--;){
+			var classes = getClasses(this[i]);
+			var j;
+			for(j=options.remove.length; j--;){
+				delete classes[options.remove[j]]
+			}
+			for(j=options.add.length; j--;){
+				classes[options.add[j]] = null;
+			}
+			for(j=options.toggle.length; j--;){
+				if(null === classes[options.toggle[j]]){
+					delete classes[options.toggle[j]];
+				}else{
+					classes[options.toggle[j]] = null;
+				}
+			}
+			setClasses(this[i], classes);
+		}
 		return this;
 	};
 
