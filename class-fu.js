@@ -47,6 +47,12 @@
 		if(!this.length){
 			return this;
 		}
+		if(isString(options)){
+			for(var i=this.length; i--;){
+				this[i].setAttribute('class', options);
+			}
+		}
+		return this;
 	};
 
 	var getClasses = function(element){
