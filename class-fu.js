@@ -37,6 +37,17 @@
 		}
 	};
 	Constructor.prototype.classFu = true;
+	Constructor.prototype.classes = function(options){
+		if(!options){
+			if(!this.length){
+				return;
+			}
+			return getClasses(this[0]);
+		}
+		if(!this.length){
+			return this;
+		}
+	};
 
 	var getClasses = function(element){
 		var s = element.getAttribute('class');
