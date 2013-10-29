@@ -145,6 +145,20 @@
 		return typeof obj === 'string';
 	};
 
+	var setClasses = function(element, classes){
+		var s = [];
+		for(var cls in classes){
+			s.push(cls);
+		}
+		s = s.join(' ');
+		if(s){
+			element.setAttribute('class', s);
+		}else{
+			element.removeAttribute('class');
+		}
+		return s;
+	};
+
 	var readyCallbacks = [];
 	var onready = function(){
 		ClassFu.ready = true;
@@ -166,6 +180,7 @@
 	ClassFu.isFunction = isFunction;
 	ClassFu.isString = isString;
 	ClassFu.ready = false;
+	ClassFu.setClasses = setClasses;
 	
 	window.ClassFu = ClassFu;
 	ClassFu.previousDollarSign = window.$;
