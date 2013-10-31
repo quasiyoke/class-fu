@@ -2,6 +2,33 @@
 ClassFu(function(){
 	module('Instance');
 
+	test('classes.add', function(){
+		var els = [];
+		els.push(document.createElement('b'));
+		els.push(document.createElement('b'));
+		els[1].setAttribute('class', 'alpha');
+		els.push(document.createElement('b'));
+		els[2].setAttribute('class', 'beta gamma');
+		var $els = $(els);
+		$els.classes.add('alpha', 'beta');
+		deepEqual($.getClasses($els[0]), {alpha: null, beta: null}, 'Element 0 `class` attribute correct');
+		deepEqual($.getClasses($els[1]), {alpha: null, beta: null}, 'Element 1 `class` attribute correct');
+		deepEqual($.getClasses($els[2]), {alpha: null, beta: null, gamma: null}, 'Element 2 `class` attribute correct');
+	});
+
+	test('classes.contains', function(){
+		var $els = $();
+		equal($els.classes.contains('alpha'), undefined, 'Generates `undefined` on empty instance.');
+		var els = [];
+		els.push(document.createElement('b'));
+		els.push(document.createElement('b'));
+		els[1].setAttribute('class', 'alpha beta');
+		$els = $(els);
+		ok(!$els.classes.contains('alpha'), 'Returns status of first element.');
+		$els = $(els[1]);
+		ok($els.classes.contains('beta'), 'Returns `true` if element contains the class.');
+	});
+
 	test('get classes', function(){
 		var $els = $();
 		equal($els.classes(), undefined, 'Generates `undefined` on empty instance');

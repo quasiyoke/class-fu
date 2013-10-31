@@ -15,12 +15,6 @@
 		if(!obj){
 			return;
 		}
-		
-		if(isElement(obj)){
-			this[0] = obj;
-			this.length = 1;
-			return;
-		}
 
 		if(isFunction(obj)){
 			if(ClassFu.ready){
@@ -28,6 +22,14 @@
 			}else{
 				readyCallbacks.push(obj);
 			}
+			return;
+		}
+		
+		this.classes.classFu = this;
+		
+		if(isElement(obj)){
+			this[0] = obj;
+			this.length = 1;
 			return;
 		}
 
@@ -105,6 +107,17 @@
 			setClasses(this[i], classes);
 		}
 		return this;
+	};
+	Constructor.prototype.classes.add = function(){
+		this.call(this.classFu, {
+			add: arguments
+		});
+	};
+	Constructor.prototype.classes.contains = function(cls){
+		if(!this.classFu || !this.classFu.length){
+			return;
+		}
+		return null === getClasses(this.classFu[0])[cls];
 	};
 
 	var getClasses = function(element){
