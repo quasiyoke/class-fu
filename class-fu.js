@@ -2,16 +2,6 @@
 
 (function(){
 	var Constructor = function(obj, action){
-		if(isString(obj)){
-			if(obj.startsWith('#')){
-				obj = document.getElementById(obj.slice(1));
-			}else if(obj.startsWith('.')){
-				obj = document.getElementsByClassName(obj.slice(1));
-			}else{
-				return;
-			}
-		}
-		
 		if(!obj){
 			return;
 		}
@@ -26,7 +16,17 @@
 		}
 		
 		this.classes.classFu = this;
-		
+
+		if(isString(obj)){
+			if(obj.startsWith('#')){
+				obj = document.getElementById(obj.slice(1));
+			}else if(obj.startsWith('.')){
+				obj = document.getElementsByClassName(obj.slice(1));
+			}else{
+				return;
+			}
+		}
+
 		if(isElement(obj)){
 			this[0] = obj;
 			this.length = 1;

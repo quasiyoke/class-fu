@@ -14,6 +14,9 @@ ClassFu(function(){
 		deepEqual($.getClasses($els[0]), {alpha: null, beta: null}, 'Element 0 `class` attribute correct');
 		deepEqual($.getClasses($els[1]), {alpha: null, beta: null}, 'Element 1 `class` attribute correct');
 		deepEqual($.getClasses($els[2]), {alpha: null, beta: null, gamma: null}, 'Element 2 `class` attribute correct');
+		$els = $('.a');
+		$els.classes.add('alpha', 'beta');
+		deepEqual($.getClasses($els[0]), {alpha: null, beta: null, a: null}, 'Works with selector-built instances.');
 	});
 
 	test('classes.contains', function(){
