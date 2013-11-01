@@ -132,6 +132,20 @@
 			this.call(this.classFu, {
 				remove: arguments
 			})
+		},
+
+		toggle: function(){
+			var options = {};
+			if(isBoolean(arguments[arguments.length - 1])){
+				var classes = [];
+				for(var i=arguments.length - 1; i--;){
+					classes.push(arguments[i])
+				}
+				options[arguments[arguments.length - 1] ? 'add' : 'remove'] = classes;
+			}else{
+				options.toggle = arguments;
+			}
+			this.call(this.classFu, options);
 		}
 	};
 
@@ -156,6 +170,10 @@
 		}
 		return retval;
 	}
+
+	var isBoolean = function(obj){
+		return true === obj || false === obj;
+	};
 
 	var isCommand = function(s){
 		var i = 0;

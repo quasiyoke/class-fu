@@ -46,6 +46,28 @@ ClassFu(function(){
 		equal(els[2].className, 'gamma', 'Element 2 `class` attribute correct');
 	});
 
+	test('classes.toggle', function(){
+		var els = [];
+		els.push(document.createElement('b'));
+		els.push(document.createElement('b'));
+		els[1].setAttribute('class', 'alpha');
+		els.push(document.createElement('b'));
+		els[2].setAttribute('class', 'beta gamma');
+		var $els = $(els);
+		$els.classes.toggle('alpha', 'beta');
+		deepEqual($.getClasses(els[0]), {alpha: null, beta: null}, 'Element without `class` attribute was processed correctly');
+		equal(els[1].className, 'beta', 'Element 1 `class` attribute triggered');
+		deepEqual($.getClasses(els[2]), {alpha: null, gamma: null}, 'Doesn\'t trigger not mentioned classes');
+		$els.classes.toggle('alpha', 'beta', false);
+		ok(!els[0].hasAttribute('class'), 'Element 0 classes removed correctly')
+		ok(!els[1].hasAttribute('class'), 'Element 1 classes removed correctly')
+		equal(els[2].className, 'gamma', 'Element 2 classes removed correctly')
+		$els.classes.toggle('alpha', 'beta', true);
+		deepEqual($.getClasses(els[0]), {alpha: null, beta: null}, 'Element 0 classes added correctly');
+		deepEqual($.getClasses(els[1]), {alpha: null, beta: null}, 'Element 1 classes added correctly');
+		deepEqual($.getClasses(els[2]), {alpha: null, beta: null, gamma: null}, 'Element 2 classes added correctly');
+	});
+
 	test('get classes', function(){
 		var $els = $();
 		equal($els.classes(), undefined, 'Generates `undefined` on empty instance');
