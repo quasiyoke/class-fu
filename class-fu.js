@@ -126,6 +126,12 @@
 				return;
 			}
 			return null === getClasses(this.classFu[0])[cls];
+		},
+
+		remove: function(){
+			this.call(this.classFu, {
+				remove: arguments
+			})
 		}
 	};
 

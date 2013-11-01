@@ -32,6 +32,20 @@ ClassFu(function(){
 		ok($els.classes.contains('beta'), 'Returns `true` if element contains the class.');
 	});
 
+	test('classes.remove', function(){
+		var els = [];
+		els.push(document.createElement('b'));
+		els.push(document.createElement('b'));
+		els[1].setAttribute('class', 'alpha');
+		els.push(document.createElement('b'));
+		els[2].setAttribute('class', 'beta gamma');
+		var $els = $(els);
+		$els.classes.remove('alpha', 'beta');
+		ok(!els[0].hasAttribute('class'), 'Element without `class` attribute was processed correctly');
+		ok(!els[1].hasAttribute('class'), 'Removes `class` attribute if no classes left');
+		equal(els[2].className, 'gamma', 'Element 2 `class` attribute correct');
+	});
+
 	test('get classes', function(){
 		var $els = $();
 		equal($els.classes(), undefined, 'Generates `undefined` on empty instance');
