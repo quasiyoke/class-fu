@@ -2,6 +2,12 @@
 
 (function(){
 	var Constructor = function(obj, action){
+		this.classes = function(){
+			return classes.apply(this, arguments);
+		};
+		extend(this.classes, classListPrototype);
+		this.classes.classFu = this;
+
 		if(!obj){
 			return;
 		}
@@ -14,8 +20,6 @@
 			}
 			return;
 		}
-		
-		this.classes.classFu = this;
 
 		if(isString(obj)){
 			if(obj.startsWith('#')){
@@ -39,7 +43,8 @@
 		}
 	};
 	Constructor.prototype.classFu = true;
-	Constructor.prototype.classes = function(options){
+	
+	var classes = function(options){
 		if(!options){
 			if(!this.length){
 				return;
@@ -108,16 +113,26 @@
 		}
 		return this;
 	};
-	Constructor.prototype.classes.add = function(){
-		this.call(this.classFu, {
-			add: arguments
-		});
-	};
-	Constructor.prototype.classes.contains = function(cls){
-		if(!this.classFu || !this.classFu.length){
-			return;
+
+	var classListPrototype = {
+		add: function(){
+			this.call(this.classFu, {
+				add: arguments
+			});
+		},
+		
+		contains: function(cls){
+			if(!this.classFu || !this.classFu.length){
+				return;
+			}
+			return null === getClasses(this.classFu[0])[cls];
 		}
-		return null === getClasses(this.classFu[0])[cls];
+	};
+
+	var extend = function(a, b){
+		for(var k in b){
+			a[k] = b[k];
+		}
 	};
 
 	var getClasses = function(element){
