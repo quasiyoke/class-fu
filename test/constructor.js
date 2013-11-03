@@ -4,9 +4,11 @@ module('Constructor');
 ClassFu(function(){
 	test('takes element', function(){
 		var el = document.createElement('b');
+		el.className = 'alpha';
 		var $el = $(el);
 		equal($el[0], el, 'Element can be accessed through subscript');
 		equal($el.length, 1, 'instance.length === 1');
+		equal($el.classes[0], 'alpha', 'Element classes can be accessed through subscript');
 	});
 
 	test('takes HTMLCollection', function(){
@@ -17,6 +19,7 @@ ClassFu(function(){
 		equal($els[2], els[2], 'Element 2 can be accessed through subscript');
 		equal($els[3], els[3], 'Element 3 can be accessed through subscript');
 		equal($els.length, 4, 'instance.length === 4');
+		equal($els.classes[0], 'a', 'First element classes can be accessed through subscript');
 	});
 
 	test('takes classes commands', function(){
@@ -37,15 +40,18 @@ ClassFu(function(){
 		equal($els[2], els[2], 'Element 2 can be accessed through subscript');
 		equal($els[3], els[3], 'Element 3 can be accessed through subscript');
 		equal($els.length, 4, 'instance.length === 4');
+		equal($els.classes[0], 'a', 'First element classes can be accessed through subscript');
 	});
 
 	test('takes CSS id selector', function(){
 		var el = document.createElement('b');
 		el.setAttribute('id', 'a');
+		el.className = 'alpha';
 		var fixture = document.getElementById('qunit-fixture');
 		fixture.appendChild(el);
 		var $el = $('#a');
 		equal($el[0], el, 'Element can be accessed through subscript');
 		equal($el.length, 1, 'instance.length === 1');		
+		equal($el.classes[0], 'alpha', 'Element classes can be accessed through subscript');
 	});
 });

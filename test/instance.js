@@ -68,6 +68,25 @@ ClassFu(function(){
 		deepEqual($.getClasses(els[2]), {alpha: null, beta: null, gamma: null}, 'Element 2 classes added correctly');
 	});
 
+	test('classes.updateItems', function(){
+		var $els = $();
+		$els.classes.updateItems();
+		equal($els.classes.count, undefined, '`count` attribute is `undefined` for empty instance');
+		ok(!(0 in $els.classes), 'There\'s no items at empty class-fu instance');
+		var el = document.createElement('b');
+		$els = $(el);
+		equal($els.classes.count, 0, '`count` attribute is 0 when there\'re no classes');
+		ok(!(0 in $els.classes), 'There\'s no items when no classes');
+		el.className = 'alpha';
+		$els.classes.updateItems();
+		equal($els.classes.count, 1, '`count` attribute is correct after adding one class');
+		equal($els.classes[0], 'alpha', 'Class is accessible through subscript');
+		el.removeAttribute('class');
+		$els.classes.updateItems();
+		equal($els.classes.count, 0, '`count` attribute is 0 after removing `class` element attribute');
+		ok(!(0 in $els.classes), 'All items was removed after removing `class` element attribute');
+	});
+
 	test('get classes', function(){
 		var $els = $();
 		equal($els.classes(), undefined, 'Generates `undefined` on empty instance');

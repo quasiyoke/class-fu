@@ -34,6 +34,7 @@
 		if(isElement(obj)){
 			this[0] = obj;
 			this.length = 1;
+			this.classes.updateItems();
 			return;
 		}
 
@@ -41,6 +42,7 @@
 		for(;i--;){
 			this[i] = obj[i];
 		}
+		this.classes.updateItems();
 	};
 	Constructor.prototype.classFu = true;
 	
@@ -87,6 +89,7 @@
 				for(var i=this.length; i--;){
 					this[i].setAttribute('class', options);
 				}
+				this.classes.updateItems();
 				return this;
 			}
 		}
@@ -111,6 +114,7 @@
 			}
 			setClasses(this[i], classes);
 		}
+		this.classes.updateItems();
 		return this;
 	};
 
@@ -146,6 +150,25 @@
 				options.toggle = arguments;
 			}
 			this.call(this.classFu, options);
+		},
+
+		updateItems: function(){
+			var i = 0;
+			var classes = this.call(this.classFu);
+			var lastCount = this.count;
+			if(classes){
+				for(var cls in classes){
+					this[i++] = cls;
+				}
+				this.count = i;
+			}else{
+				this.count = undefined;
+			}
+			if(lastCount){
+				for(;i<lastCount;i++){
+					delete this[i];
+				}
+			}
 		}
 	};
 
