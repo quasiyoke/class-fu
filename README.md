@@ -3,6 +3,37 @@ class-fu is a JavaScript library for manipulating CSS classes.
 
 class-fu is leightweight and doesn't use third-party libraries.
 
+## QuickStart
+
+To create class-fu instance for all `.highlighted` elements:
+```javascript
+var $elements = $('.unhighlighted');
+```
+
+class-fu instances support [classList][1]-like way accessing an elements' list of classes through `classes` attribute:
+```javascript
+$elements.classes.remove('unhighlighted'); // Removes `unhighlighted` class for all $elements
+$elements.classes.add('highlighted'); // Adds `highlighted` class for all $elements
+$elements.classes.toggle('highlighted'); // Toggles the class
+$elements.classes.toggle('highlighted', !!flag); // Toggles the class corresponding to flag boolean value
+flag = $elements.classes.contains('highlighted'); // Checks if first element contain `highlighted` class
+```
+
+...including multiple classes in arguments:
+```javascript
+$elements.classes.toggle('highlighted', 'unhighlighted'); // Toggles classes for every element in $elements
+```
+...and accessing classes through subscript:
+```javascript
+var firstElementFirstClass = $elements.classes[0];
+```
+
+...except `length` attribute which is replaced by `count` attribute:
+```javascript
+var classesLength = $elements.classes.count;
+```
+...due to `classes` is also powerful classes' managing method (every JavaScript function already has read-only `length` attribute). Read more about it below.
+
 ## Example: cooking steaks using class-fu
 The problem is to transform every cow on your page (marked with `cow` CSS class) to `well-done`, `delicious` `steak`. It is extremely simple with class-fu:
 ```javascript
@@ -119,3 +150,6 @@ ClassFu(function($){
 });
 ```
 Forget this. Never make anything blink on the web, please.
+
+
+  [1]: https://developer.mozilla.org/en-US/docs/Web/API/Element.classList
