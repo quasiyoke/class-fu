@@ -45,6 +45,55 @@
 		this.classes.updateItems();
 	};
 	Constructor.prototype.classFu = true;
+	Constructor.prototype.splice = function(index, removingCount){
+		if(0 === arguments.length){
+			return;
+		}
+		if(index < 0){
+			index += this.length;
+			if(index < 0){
+				index = 0;
+			}
+		}else if(index > this.length){
+			index = this.length;
+		}
+		if(1 === arguments.length){
+			removingCount = this.length - index;
+		}else{
+			if(removingCount < 0){
+				removingCount = 0;
+			}else if(removingCount > this.length - index){
+				removingCount = this.length - index;
+			}
+		}
+		var addingCount = arguments.length > 2 ? arguments.length - 2 : 0;
+		var i, j;
+		var removed = [];
+		for(i=index, j=0; j<removingCount; i++, j++){
+			removed.push(this[i]);
+		}
+		if(addingCount > removingCount){
+			for(i=this.length; i-->index+removingCount;){
+				this[i - removingCount + addingCount] = this[i];
+			}
+		}else{
+			for(i=index+removingCount; i<this.length; i++){
+				this[i - removingCount + addingCount] = this[i];
+			}
+		}
+		for(i=index, j=2; j<arguments.length; i++, j++){
+			this[i] = arguments[j];
+		}
+		var length = this.length - removingCount + addingCount;
+		for(i=length; i<this.length; i++){
+			delete this[i];
+		}
+		this.length = length;
+		if(0 === index){
+			this.classes.updateItems();
+		}
+		return removed;
+	};
 	
 	var classes = function(options){
 		if(!options){

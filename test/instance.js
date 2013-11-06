@@ -2,6 +2,14 @@
 ClassFu(function(){
 	module('Instance');
 
+	var itemsEqual = function(actual, expected, message){
+		ok(typeof actual, 'object', message + ' (object)');
+		equal(actual.length, expected.length, message + ' (length)');
+		for(var i=0; i<actual.length; i++){
+			equal(actual[i], expected[i], message + ' (' + i + ')');
+		}
+	};
+
 	test('classes.add', function(){
 		var els = [];
 		els.push(document.createElement('b'));
@@ -127,5 +135,31 @@ ClassFu(function(){
 		equal($els[1].getAttribute('class'), 'alpha beta', 'Element 1 `class` attribute took given value');
 		equal($els[2].getAttribute('class'), 'alpha beta', 'Element 2 `class` attribute took given value');
 		equal($els[3].getAttribute('class'), 'alpha beta', 'Element 3 `class` attribute took given value');
+	});
+
+	test('splice', function(){
+		var els = document.getElementsByClassName('a');
+		var els2 = [
+			document.createElement('b'),
+			document.createElement('b'),
+			document.createElement('b')
+		];
+		var $els = $(els);
+		var removed = $els.splice(2, 0, els2[0], els2[1], els2[2]);
+		itemsEqual($els, [els[0], els[1], els2[0], els2[1], els2[2], els[2], els[3]], 'Removes no elements if `removingCount` is 0');
+		itemsEqual(removed, [], 'Returns empty array');
+		$els.splice(100, 2, els2[0], els2[1]);
+		itemsEqual($els, [els[0], els[1], els2[0], els2[1], els2[2], els[2], els[3], els2[0], els2[1]], 'Removes no elements if `index` is greater than length of the array');
+		removed = $els.splice(-4, 2);
+		itemsEqual($els, [els[0], els[1], els2[0], els2[1], els2[2], els2[0], els2[1]], 'Negative `index` begins that many elements from the end');
+		itemsEqual(removed, [els[2], els[3]]);
+		$els.splice(5, 100);
+		itemsEqual($els, [els[0], els[1], els2[0], els2[1], els2[2]], 'If `removingCount` is greater than the number of elements left in the array starting at `index`, then all of the elements through the end of the array will be deleted');
+		$els.splice(1);
+		itemsEqual($els, [els[0]], 'If no `removingCount` parameter is specified, all elements after `index` are removed');
+		els2[0].className = 'alpha';
+		$els.splice(0, 1, els2[0]);
+		equal($els.classes.count, 1, '`classes` object `count` attribute correspond to first element changing');
+		equal($els.classes[0], 'alpha', '`classes` object items correspond to first element changing');
 	});
 });
